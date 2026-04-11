@@ -116,6 +116,21 @@ function GalleryColumn({
       style={{ flex: 1, minWidth: 0, overflow: "hidden" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      // On touch devices: pause only while finger is held down, resume on lift
+      onTouchStart={(e) => {
+        // Only pause if it's a sustained hold, not a tap-to-navigate
+        e.currentTarget.dataset.holdTimer = String(
+          window.setTimeout(() => setPaused(true), 150)
+        )
+      }}
+      onTouchEnd={(e) => {
+        clearTimeout(Number(e.currentTarget.dataset.holdTimer))
+        setPaused(false)
+      }}
+      onTouchCancel={(e) => {
+        clearTimeout(Number(e.currentTarget.dataset.holdTimer))
+        setPaused(false)
+      }}
     >
       <div
         style={{
@@ -202,9 +217,9 @@ export function AnimatedScrollGallery({
             perspective: "1200px",
           }}
         >
-          <GalleryColumn items={col1} direction="up"   duration={28} accentColor={accentColor} />
-          <GalleryColumn items={col2} direction="down" duration={34} accentColor={accentColor} />
-          <GalleryColumn items={col3} direction="up"   duration={24} accentColor={accentColor} />
+          <GalleryColumn items={col1} direction="up"   duration={31} accentColor={accentColor} />
+          <GalleryColumn items={col2} direction="down" duration={37} accentColor={accentColor} />
+          <GalleryColumn items={col3} direction="up"   duration={26} accentColor={accentColor} />
         </motion.div>
       </div>
     </section>
