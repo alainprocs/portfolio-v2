@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { ShaderIntro } from "@/components/ui/shader-intro";
 import { SectionNav } from "@/components/ui/section-nav";
+import { ScrollExpansionHero } from "@/components/ui/scroll-expansion-hero";
+import { SectionPlaceholder } from "@/components/ui/section-placeholder";
+import { GalleryHoverCarousel, type CarouselItem } from "@/components/ui/gallery-hover-carousel";
 import Image from "next/image";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -63,6 +66,27 @@ const sites: SiteCard[] = [
   { label: "Website", title: "Mushy Recipe", desc: "mushyrecipe.com", img: `${BASE}/assets/images/mushy.jpg`, href: "https://mushyrecipe.com/" },
   { label: "Website", title: "WC Shipping", desc: "wcshipping.com", img: `${BASE}/assets/images/wcshipping.jpg`, href: "https://wcshipping.com/" },
   { label: "Website", title: "Novo Labs", desc: "novolabs.xyz", img: `${BASE}/assets/images/novolabs.jpg`, href: "https://novolabs.xyz/" },
+];
+
+const automationItems: CarouselItem[] = [
+  { id: "1", title: "Blog Maker", accent: "MCP Servers", summary: "The workflow that replaced a whole marketing team. End-to-end content pipeline powered by AI.", url: "https://docs.google.com/document/d/1LWYgGZ1ID7iTryUfHZZiTDCeZj82jr-HN8YyN_3zVB8/edit?usp=sharing", image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=640&q=80" },
+  { id: "2", title: "Amazon Affiliate Automation", accent: "Make.com", summary: "Everything you need to get started in the Affiliate Marketing business, like a pro.", url: "https://docs.google.com/document/d/1kEeNU1sZlCZaNWjNstUrdioDwuEVdCjTDBnRyAZxz7Y/edit?usp=sharing", image: "https://images.unsplash.com/photo-1523474253046-8cd2748b5fd2?w=640&q=80" },
+  { id: "3", title: "EZ Reddit Lead Gen", accent: "n8n", summary: "How to become big on Reddit and get more leads into your business, automated.", url: "https://docs.google.com/document/d/1AG_24DJfGigWgUY4iughagytECXVqBQtBoOPWKFLkuM/edit?usp=sharing", image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?w=640&q=80" },
+  { id: "4", title: "AI-Powered Lead Enrichment", accent: "n8n + Perplexity", summary: "Find everything you need to know about your leads with the power of Perplexity AI.", url: "https://docs.google.com/document/d/1l5EFwZW8I1y58f674hO7Cmf-xXmE2OSNA4N960L633k/edit?usp=sharing", image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=640&q=80" },
+  { id: "5", title: "Client Satisfaction Early Warning", accent: "n8n", summary: "Automated BI workflow that proactively monitors client sentiment and sends dissatisfaction alerts.", url: "#", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=640&q=80" },
+];
+
+const websiteItems: CarouselItem[] = [
+  { id: "1", title: "Eightx", accent: "WordPress", summary: "Full-stack growth consultancy site with custom CRO optimisations.", url: "https://eightx.co/", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=640&q=80" },
+  { id: "2", title: "TranquiWick", accent: "WordPress", summary: "Luxury candle brand e-commerce with scent personalisation flow.", url: "https://tranquilwick.com/", image: "https://images.unsplash.com/photo-1572726729207-a78d6feb18d7?w=640&q=80" },
+  { id: "3", title: "Mushy Recipe", accent: "Website", summary: "Recipe discovery platform with AI-generated meal plans.", url: "https://mushyrecipe.com/", image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=640&q=80" },
+  { id: "4", title: "WC Shipping", accent: "Website", summary: "Global freight logistics platform with real-time rate calculation.", url: "https://wcshipping.com/", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=640&q=80" },
+  { id: "5", title: "Novo Labs", accent: "Website", summary: "AI-native product studio — branding, design and development.", url: "https://novolabs.xyz/", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=640&q=80" },
+];
+
+const demoItems: CarouselItem[] = [
+  { id: "1", title: "Driftwave", accent: "Apr 10 2026", summary: "Async video collaboration SaaS — dark cyan/violet glassmorphism with floating blob animations.", url: "https://alainprocs.github.io/ui-demos/driftwave", image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=640&q=80" },
+  { id: "2", title: "Orbita", accent: "Apr 12 2026", summary: "Infrastructure cost intelligence SaaS — black/amber industrial with circuit grid and magnetic buttons.", url: "https://alainprocs.github.io/ui-demos/orbita", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=640&q=80" },
 ];
 
 const demos: DemoCard[] = [
@@ -196,7 +220,16 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 // ── Page ───────────────────────────────────────────────────────
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>("projects");
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleSectionSelect = (id: string) => {
+    setActiveSection(id);
+    // Give React one frame to render the section, then scroll to it
+    requestAnimationFrame(() => {
+      contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
 
   return (
     <>
@@ -329,84 +362,99 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.46 }}
               className="mt-4"
             >
-              <SectionNav active={activeSection} onSelect={setActiveSection} />
+              <SectionNav active={activeSection} onSelect={handleSectionSelect} />
             </motion.div>
           </div>
         </section>
 
         {/* CONTENT */}
-        <div className="max-w-5xl mx-auto px-6 pb-24">
+        {/* Scroll anchor — clicking a pill scrolls here */}
+        <div ref={contentRef} style={{ scrollMarginTop: 0 }} />
 
-          <AnimatePresence mode="wait">
-            {activeSection === "projects" && (
-              <motion.section
-                key="projects"
-                id="projects"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="pt-16"
-              >
-                <SectionTitle>Automations</SectionTitle>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {projects.map((p, i) => <ProjectCardEl key={p.title} p={p} i={i} />)}
-                </div>
-              </motion.section>
-            )}
-
-            {activeSection === "websites" && (
-              <motion.section
-                key="websites"
-                id="websites"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="pt-16"
-              >
-                <SectionTitle>Websites Managed</SectionTitle>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {sites.map((s, i) => <SiteCardEl key={s.title} s={s} i={i} />)}
-                </div>
-              </motion.section>
-            )}
-
-            {activeSection === "ui-demos" && (
-              <motion.section
-                key="ui-demos"
-                id="ui-demos"
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="pt-16"
-              >
-                <SectionTitle>UI Demos</SectionTitle>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {demos.map((d, i) => <DemoCardEl key={d.title} d={d} i={i} />)}
-                </div>
-              </motion.section>
-            )}
-          </AnimatePresence>
-
-          <footer className="pt-10 border-t flex flex-col items-center gap-5 text-center" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
-            <p className="text-sm" style={{ color: "#9e9baf" }}>
-              Got any questions? Interested in a custom project?<br />
-              Don&apos;t hesitate to <strong className="text-white">contact me!</strong>
-            </p>
-            <a
-              href="https://www.linkedin.com/in/aprocc/"
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
-              style={{ background: "#0a66c2" }}
+        <AnimatePresence mode="wait">
+          {activeSection === "projects" && (
+            <motion.div
+              key="projects"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
             >
-              Connect on LinkedIn
-            </a>
-            <p className="text-xs" style={{ color: "#444" }}>Made with ♥ — Alain Procs</p>
-          </footer>
-        </div>
+              <ScrollExpansionHero
+                title="GTM Automations"
+                subtitle="Scroll to explore"
+                placeholder={<SectionPlaceholder section="projects" />}
+              >
+                <GalleryHoverCarousel
+                  heading="Production-grade GTM automations"
+                  items={automationItems}
+                  accentColor="#05ddfa"
+                />
+              </ScrollExpansionHero>
+            </motion.div>
+          )}
+
+          {activeSection === "websites" && (
+            <motion.div
+              key="websites"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <ScrollExpansionHero
+                title="Websites Managed"
+                subtitle="Scroll to explore"
+                placeholder={<SectionPlaceholder section="websites" />}
+              >
+                <GalleryHoverCarousel
+                  heading="Live sites I've built and managed"
+                  items={websiteItems}
+                  accentColor="#8c31e8"
+                />
+              </ScrollExpansionHero>
+            </motion.div>
+          )}
+
+          {activeSection === "ui-demos" && (
+            <motion.div
+              key="ui-demos"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <ScrollExpansionHero
+                title="UI Demos"
+                subtitle="Scroll to explore"
+                placeholder={<SectionPlaceholder section="ui-demos" />}
+              >
+                <GalleryHoverCarousel
+                  heading="Daily UI showcase builds"
+                  items={demoItems}
+                  accentColor="#f59e0b"
+                />
+              </ScrollExpansionHero>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <footer className="max-w-5xl mx-auto px-6 pb-16 pt-10 border-t flex flex-col items-center gap-5 text-center" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
+          <p className="text-sm" style={{ color: "#9e9baf" }}>
+            Got any questions? Interested in a custom project?<br />
+            Don&apos;t hesitate to <strong className="text-white">contact me!</strong>
+          </p>
+          <a
+            href="https://www.linkedin.com/in/aprocc/"
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white no-underline transition-all duration-200 hover:-translate-y-0.5 hover:opacity-90"
+            style={{ background: "#0a66c2" }}
+          >
+            Connect on LinkedIn
+          </a>
+          <p className="text-xs" style={{ color: "#444" }}>Made with ♥ — Alain Procs</p>
+        </footer>
       </motion.main>
     </>
   );
