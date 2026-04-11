@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -161,6 +161,14 @@ export function AnimatedScrollGallery({
 }) {
   const [col1, col2, col3] = distribute(items)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -176,7 +184,7 @@ export function AnimatedScrollGallery({
       ref={sectionRef}
       style={{ padding: "clamp(40px,8vw,80px) 0 clamp(50px,10vw,100px)" }}
     >
-      <div style={{ width: "90%", margin: "0 auto" }}>
+      <div style={{ width: isDesktop ? "72%" : "90%", margin: "0 auto" }}>
 
         {/* Header */}
         {heading && (
@@ -209,7 +217,7 @@ export function AnimatedScrollGallery({
           style={{
             display: "flex",
             gap: 10,
-            height: "clamp(480px, 70vh, 680px)",
+            height: isDesktop ? "clamp(768px, 85vh, 1100px)" : "clamp(480px, 70vh, 680px)",
             overflow: "hidden",
             rotateX,
             scale,
