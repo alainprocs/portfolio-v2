@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { ShaderIntro } from "@/components/ui/shader-intro";
 import { SectionNav } from "@/components/ui/section-nav";
@@ -196,6 +196,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 // ── Page ───────────────────────────────────────────────────────
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   return (
     <>
@@ -328,34 +329,66 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.46 }}
               className="mt-4"
             >
-              <SectionNav />
+              <SectionNav active={activeSection} onSelect={setActiveSection} />
             </motion.div>
           </div>
         </section>
 
         {/* CONTENT */}
-        <div className="max-w-5xl mx-auto px-6 pb-24 space-y-20">
+        <div className="max-w-5xl mx-auto px-6 pb-24">
 
-          <section id="projects" className="pt-16">
-            <SectionTitle>My Projects</SectionTitle>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {projects.map((p, i) => <ProjectCardEl key={p.title} p={p} i={i} />)}
-            </div>
-          </section>
+          <AnimatePresence mode="wait">
+            {activeSection === "projects" && (
+              <motion.section
+                key="projects"
+                id="projects"
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="pt-16"
+              >
+                <SectionTitle>Automations</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {projects.map((p, i) => <ProjectCardEl key={p.title} p={p} i={i} />)}
+                </div>
+              </motion.section>
+            )}
 
-          <section id="websites">
-            <SectionTitle>Websites Managed</SectionTitle>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {sites.map((s, i) => <SiteCardEl key={s.title} s={s} i={i} />)}
-            </div>
-          </section>
+            {activeSection === "websites" && (
+              <motion.section
+                key="websites"
+                id="websites"
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="pt-16"
+              >
+                <SectionTitle>Websites Managed</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {sites.map((s, i) => <SiteCardEl key={s.title} s={s} i={i} />)}
+                </div>
+              </motion.section>
+            )}
 
-          <section id="ui-demos">
-            <SectionTitle>UI Demos</SectionTitle>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {demos.map((d, i) => <DemoCardEl key={d.title} d={d} i={i} />)}
-            </div>
-          </section>
+            {activeSection === "ui-demos" && (
+              <motion.section
+                key="ui-demos"
+                id="ui-demos"
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="pt-16"
+              >
+                <SectionTitle>UI Demos</SectionTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {demos.map((d, i) => <DemoCardEl key={d.title} d={d} i={i} />)}
+                </div>
+              </motion.section>
+            )}
+          </AnimatePresence>
 
           <footer className="pt-10 border-t flex flex-col items-center gap-5 text-center" style={{ borderColor: "rgba(255,255,255,0.07)" }}>
             <p className="text-sm" style={{ color: "#9e9baf" }}>

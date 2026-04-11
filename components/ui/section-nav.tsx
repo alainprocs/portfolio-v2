@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-const TABS = [
+export const TABS = [
   { id: "projects",  label: "Automations" },
   { id: "websites",  label: "Websites Managed" },
   { id: "ui-demos",  label: "UI Demos" },
@@ -12,17 +12,13 @@ const TABS = [
 const CYAN   = "#05ddfa"
 const PURPLE = "#8c31e8"
 
-export function SectionNav() {
-  const [active,  setActive]  = useState(TABS[0].id)
-  const [hovered, setHovered] = useState<string | null>(null)
+interface SectionNavProps {
+  active: string | null
+  onSelect: (id: string) => void
+}
 
-  const scrollTo = (id: string) => {
-    setActive(id)
-    const el = document.getElementById(id)
-    if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY - 32
-    window.scrollTo({ top, behavior: "smooth" })
-  }
+export function SectionNav({ active, onSelect }: SectionNavProps) {
+  const [hovered, setHovered] = useState<string | null>(null)
 
   return (
     <div
@@ -45,7 +41,7 @@ export function SectionNav() {
         return (
           <button
             key={tab.id}
-            onClick={() => scrollTo(tab.id)}
+            onClick={() => onSelect(tab.id)}
             onMouseEnter={() => setHovered(tab.id)}
             onMouseLeave={() => setHovered(null)}
             style={{
@@ -76,9 +72,7 @@ export function SectionNav() {
                   position: "absolute",
                   inset: 0,
                   borderRadius: 9999,
-                  // gradient fill
                   background: `linear-gradient(135deg, ${CYAN}22 0%, ${PURPLE}22 100%)`,
-                  // outer + inner glow
                   boxShadow: `
                     0 0 18px ${CYAN}33,
                     0 0 40px ${PURPLE}22,
@@ -87,7 +81,6 @@ export function SectionNav() {
                   `,
                 }}
               >
-                {/* Animated gradient border */}
                 <span
                   className="nav-border-spin"
                   style={{
@@ -96,7 +89,6 @@ export function SectionNav() {
                     borderRadius: 9999,
                     padding: 1,
                     background: `linear-gradient(135deg, ${CYAN}, ${PURPLE}, ${CYAN})`,
-                    // mask punches out the interior leaving only the 1px border
                     WebkitMask:
                       "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
                     WebkitMaskComposite: "xor",
@@ -128,7 +120,6 @@ export function SectionNav() {
 
             {/* ── Label ───────────────────────────────────────── */}
             <span style={{ position: "relative", zIndex: 1 }}>
-              {/* Subtle glow on active label text */}
               {isActive
                 ? <span style={{
                     background: `linear-gradient(90deg, ${CYAN}, #a78bfa)`,
