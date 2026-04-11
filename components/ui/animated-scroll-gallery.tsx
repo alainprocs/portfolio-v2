@@ -154,10 +154,12 @@ export function AnimatedScrollGallery({
   items,
   accentColor = "#05ddfa",
   heading,
+  subheading,
 }: {
   items: CarouselItem[]
   accentColor?: string
   heading?: string
+  subheading?: string
 }) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [isDesktop, setIsDesktop] = useState(false)
@@ -186,27 +188,39 @@ export function AnimatedScrollGallery({
 
         {/* Header */}
         {heading && (
-          <div style={{ marginBottom: 40 }}>
+          <div style={{ marginBottom: 40, textAlign: "center" }}>
             <div style={{
               fontSize: "0.65rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
               fontWeight: 700,
               color: accentColor,
-              marginBottom: 10,
+              marginBottom: 12,
             }}>
               Featured work
             </div>
             <h3 style={{
-              fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+              fontSize: "clamp(2rem, 4vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "#fff",
-              lineHeight: 1.2,
-              margin: 0,
+              lineHeight: 1.15,
+              margin: "0 0 14px",
             }}>
               {heading}
             </h3>
+            {subheading && (
+              <p style={{
+                fontSize: "clamp(0.85rem, 1.4vw, 1rem)",
+                color: "rgba(255,255,255,0.48)",
+                lineHeight: 1.6,
+                margin: 0,
+                maxWidth: 540,
+                marginInline: "auto",
+              }}>
+                {subheading}
+              </p>
+            )}
           </div>
         )}
 

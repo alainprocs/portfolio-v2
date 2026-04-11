@@ -394,6 +394,7 @@ export default function Home() {
             >
               <AnimatedScrollGallery
                 heading="Production-grade GTM automations"
+                subheading="End-to-end workflows that replace manual work — from content pipelines and lead research to affiliate marketing and client retention monitoring."
                 items={automationItems}
                 accentColor="#05ddfa"
               />
@@ -410,6 +411,7 @@ export default function Home() {
             >
               <AnimatedScrollGallery
                 heading="Live sites I've built and managed"
+                subheading="From e-commerce stores and logistics platforms to agency sites — each one built for performance, conversion, and long-term maintainability."
                 items={websiteItems}
                 accentColor="#8c31e8"
               />
@@ -425,7 +427,8 @@ export default function Home() {
               transition={{ duration: 0.35 }}
             >
               <AnimatedScrollGallery
-                heading="Daily UI showcase builds"
+                heading="UI Demos"
+                subheading="A running series of fully-coded landing pages for imaginary companies — each one a different industry, aesthetic, and animation style."
                 items={demoItems}
                 accentColor="#f59e0b"
               />
