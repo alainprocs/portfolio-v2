@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { ShaderIntro } from "@/components/ui/shader-intro";
 import { SectionNav } from "@/components/ui/section-nav";
-import { ScrollExpansionHero } from "@/components/ui/scroll-expansion-hero";
-import { SectionPlaceholder } from "@/components/ui/section-placeholder";
 import { GalleryHoverCarousel, type CarouselItem } from "@/components/ui/gallery-hover-carousel";
 import Image from "next/image";
 
@@ -375,66 +373,48 @@ export default function Home() {
           {activeSection === "projects" && (
             <motion.div
               key="projects"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
             >
-              <ScrollExpansionHero
-                title="GTM Automations"
-                subtitle="Scroll to explore"
-                placeholder={<SectionPlaceholder section="projects" />}
-              >
-                <GalleryHoverCarousel
-                  heading="Production-grade GTM automations"
-                  items={automationItems}
-                  accentColor="#05ddfa"
-                />
-              </ScrollExpansionHero>
+              <GalleryHoverCarousel
+                heading="Production-grade GTM automations"
+                items={automationItems}
+                accentColor="#05ddfa"
+              />
             </motion.div>
           )}
 
           {activeSection === "websites" && (
             <motion.div
               key="websites"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
             >
-              <ScrollExpansionHero
-                title="Websites Managed"
-                subtitle="Scroll to explore"
-                placeholder={<SectionPlaceholder section="websites" />}
-              >
-                <GalleryHoverCarousel
-                  heading="Live sites I've built and managed"
-                  items={websiteItems}
-                  accentColor="#8c31e8"
-                />
-              </ScrollExpansionHero>
+              <GalleryHoverCarousel
+                heading="Live sites I've built and managed"
+                items={websiteItems}
+                accentColor="#8c31e8"
+              />
             </motion.div>
           )}
 
           {activeSection === "ui-demos" && (
             <motion.div
               key="ui-demos"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35 }}
             >
-              <ScrollExpansionHero
-                title="UI Demos"
-                subtitle="Scroll to explore"
-                placeholder={<SectionPlaceholder section="ui-demos" />}
-              >
-                <GalleryHoverCarousel
-                  heading="Daily UI showcase builds"
-                  items={demoItems}
-                  accentColor="#f59e0b"
-                />
-              </ScrollExpansionHero>
+              <GalleryHoverCarousel
+                heading="Daily UI showcase builds"
+                items={demoItems}
+                accentColor="#f59e0b"
+              />
             </motion.div>
           )}
         </AnimatePresence>
