@@ -22,8 +22,9 @@ export function SectionNav({ active, onSelect }: SectionNavProps) {
 
   return (
     <div
+      className="section-nav-scroll"
       style={{
-        display: "inline-flex",
+        display: "flex",
         alignItems: "center",
         gap: 4,
         padding: 6,
@@ -32,6 +33,8 @@ export function SectionNav({ active, onSelect }: SectionNavProps) {
         border: "1px solid rgba(255,255,255,0.07)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
+        overflowX: "auto",
+        maxWidth: "calc(100vw - 48px)",
       }}
     >
       {TABS.map((tab) => {
@@ -46,7 +49,7 @@ export function SectionNav({ active, onSelect }: SectionNavProps) {
             onMouseLeave={() => setHovered(null)}
             style={{
               position: "relative",
-              padding: "10px 22px",
+              padding: "10px 18px",
               borderRadius: 9999,
               border: "none",
               background: "none",

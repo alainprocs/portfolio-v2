@@ -138,8 +138,8 @@ export function PulseBeamsLinkedIn() {
       </div>
 
       {/* Center button */}
-      <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-        <p style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 500, margin: 0 }}>
+      <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: "0 24px" }}>
+        <p style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 500, margin: 0, textAlign: "center", maxWidth: 280 }}>
           Got questions? Interested in a custom project?
         </p>
         <a

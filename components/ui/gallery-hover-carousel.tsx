@@ -181,8 +181,8 @@ export function GalleryHoverCarousel({
   }, [api])
 
   return (
-    <section style={{ padding: "80px 0 100px", background: "#06060a" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+    <section style={{ padding: "clamp(40px,8vw,80px) 0 clamp(50px,10vw,100px)", background: "#06060a" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(16px,4vw,24px)" }}>
 
         {/* Header */}
         <div
@@ -276,7 +276,7 @@ export function GalleryHoverCarousel({
               <CarouselItem
                 key={item.id}
                 className="pl-4"
-                style={{ maxWidth: 320, minWidth: 280 }}
+                style={{ maxWidth: 320, minWidth: "min(280px, calc(100vw - 64px))" }}
               >
                 <HoverCard item={item} accentColor={accentColor} />
               </CarouselItem>

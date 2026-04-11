@@ -163,6 +163,15 @@
 .delay-400 { animation-delay: 0.4s; opacity: 0; }
 .delay-500 { animation-delay: 0.5s; opacity: 0; }
 
+/* ── Section nav — hide scrollbar on mobile ─────────────────── */
+.section-nav-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.section-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* ── Shiny button ─────────────────────────────────────────────── */
 /* --x sweeps from 120% → -120% on a 2.4s loop with a 1s pause   */
 @keyframes shiny-sweep {
