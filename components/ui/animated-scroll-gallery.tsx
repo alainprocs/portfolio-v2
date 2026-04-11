@@ -159,7 +159,6 @@ export function AnimatedScrollGallery({
   accentColor?: string
   heading?: string
 }) {
-  const [col1, col2, col3] = distribute(items)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [isDesktop, setIsDesktop] = useState(false)
 
@@ -233,9 +232,26 @@ export function AnimatedScrollGallery({
               transformStyle: "preserve-3d",
             }}
           >
-            <GalleryColumn items={col1} direction="up"   duration={31} accentColor={accentColor} />
-            <GalleryColumn items={col2} direction="down" duration={37} accentColor={accentColor} />
-            <GalleryColumn items={col3} direction="up"   duration={26} accentColor={accentColor} />
+            {isDesktop
+              ? distribute(items, 5).map((col, i) => (
+                  <GalleryColumn
+                    key={i}
+                    items={col}
+                    direction={i % 2 === 0 ? "up" : "down"}
+                    duration={[31, 37, 28, 34, 26][i]}
+                    accentColor={accentColor}
+                  />
+                ))
+              : distribute(items, 3).map((col, i) => (
+                  <GalleryColumn
+                    key={i}
+                    items={col}
+                    direction={i === 1 ? "down" : "up"}
+                    duration={[31, 37, 26][i]}
+                    accentColor={accentColor}
+                  />
+                ))
+            }
           </motion.div>
         </div>
       </div>
