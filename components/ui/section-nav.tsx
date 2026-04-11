@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export const TABS = [
-  { id: "projects",  label: "Automations",      short: "Automations" },
-  { id: "websites",  label: "Websites Managed",  short: "Websites" },
   { id: "ui-demos",  label: "UI Demos",           short: "UI Demos" },
+  { id: "projects",  label: "Automations",        short: "Automations" },
+  { id: "websites",  label: "Websites Managed",   short: "Websites" },
 ]
 
 const CYAN   = "#05ddfa"

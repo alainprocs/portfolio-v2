@@ -220,7 +220,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 // ── Page ───────────────────────────────────────────────────────
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>("projects");
+  const [activeSection, setActiveSection] = useState<string | null>("ui-demos");
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleSectionSelect = (id: string) => {
