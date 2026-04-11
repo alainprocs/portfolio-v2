@@ -20,8 +20,6 @@ interface DemoCard { title: string; tagline: string; desc: string; href: string;
 
 // ── Data ───────────────────────────────────────────────────────
 const navLinks: NavLink[] = [
-  { label: "My Projects", href: "#projects" },
-  { label: "My Websites", href: "#websites" },
   { label: "Book a Meeting", href: "https://calendly.com/alainprocs/30min?month=2025-06&date=2025-06-30" },
   { label: "My Resume", href: "https://drive.google.com/file/d/1ePYhYN9EIaxsli4Tci6637dHjiwGRI3p/view?usp=sharing" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/aprocc/" },

@@ -181,7 +181,7 @@
 
 @property --x {
   syntax: "<percentage>";
-  inherits: false;
+  inherits: true;
   initial-value: 120%;
 }
 
