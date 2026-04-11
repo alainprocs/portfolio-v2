@@ -41,9 +41,12 @@ float clouds(vec2 p){
 }
 void main(void){
   vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2,1);
-  // Shift rendering centre upward. Use a moderate fixed offset so meteors
-  // remain visible on desktop (wide canvas) but stay above text on mobile.
-  uv.y -= 0.35;
+  // Shift rendering centre upward.
+  // On portrait screens (mobile) the aspect ratio < 1, so we add extra upward
+  // offset to keep meteors above the text. On landscape (desktop) no bonus.
+  float aspect = R.x / R.y;
+  float mobileBoost = smoothstep(1.0, 0.45, aspect); // 0 on desktop, ~1 on phone portrait
+  uv.y -= 0.35 + mobileBoost * 0.30;
   vec3 col=vec3(0);
   float bg=clouds(vec2(st.x+T*.5,-st.y));
   uv*=1.-.3*(sin(T*.2)*.5+.5);
