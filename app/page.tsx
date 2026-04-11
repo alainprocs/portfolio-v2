@@ -235,17 +235,21 @@ export default function Home() {
       {/* ── Shader intro overlay ──────────────────────────────── */}
       <ShaderIntro onDone={() => setIntroComplete(true)} />
 
-      {/* ── Side sparkles: thin strips fixed to the viewport edges ── */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", display: "flex" }}>
-        {/* Left strip */}
-        <div style={{ width: 80, height: "100%", flexShrink: 0 }}>
-          <SparklesCore background="transparent" minSize={0.2} maxSize={0.9} particleDensity={40} particleColor="#ffffff" speed={0.4} className="w-full h-full" />
-        </div>
-        {/* Right strip */}
-        <div style={{ flex: 1 }} />
-        <div style={{ width: 80, height: "100%", flexShrink: 0 }}>
-          <SparklesCore background="transparent" minSize={0.2} maxSize={0.9} particleDensity={40} particleColor="#ffffff" speed={0.4} className="w-full h-full" />
-        </div>
+      {/* ── Full-page particle background at z-index 0 ───────────
+          The hero's WebGL canvas (absolute, inside hero section) naturally
+          covers these particles in the hero area. Below the hero they
+          show through on the dark background — no cutoff.              */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#06060a" }}>
+        <SparklesCore
+          id="global-sparkles"
+          background="transparent"
+          minSize={0.3}
+          maxSize={1.1}
+          particleDensity={50}
+          particleColor="#ffffff"
+          speed={0.45}
+          className="w-full h-full"
+        />
       </div>
 
       {/* ── All scrollable content ─────────────────────────────── */}
@@ -265,43 +269,11 @@ export default function Home() {
             alignItems: "center",
             justifyContent: "center",
             overflow: "hidden",
+            background: "#06060a", // opaque — shader canvas covers global particles here
           }}
         >
           {/* WebGL shader canvas */}
           <AnimatedShaderCanvas />
-
-          {/* Dense sparkles concentrated in the name + buttons zone */}
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "min(640px, 92vw)",
-              height: 320,
-              pointerEvents: "none",
-              zIndex: 1,
-            }}
-          >
-            <SparklesCore
-              background="transparent"
-              minSize={0.3}
-              maxSize={1.1}
-              particleDensity={220}
-              particleColor="#ffffff"
-              speed={0.5}
-              className="w-full h-full"
-            />
-            {/* Fade edges so sparkles don't bleed too far */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, #06060a 100%)",
-              }}
-            />
-          </div>
 
           {/* Content overlay */}
           <div
