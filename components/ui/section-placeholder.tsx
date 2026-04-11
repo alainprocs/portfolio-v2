@@ -120,35 +120,6 @@ export function SectionPlaceholder({ section }: { section: string }) {
         ref={canvasRef}
         style={{ width: "100%", height: "100%", display: "block" }}
       />
-      {/* Center label */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-          pointerEvents: "none",
-        }}
-      >
-        <span style={{ fontSize: "2.5rem" }}>{cfg.icon}</span>
-        <span
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            background: `linear-gradient(90deg, ${cfg.colorA}, ${cfg.colorB})`,
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
-        >
-          {cfg.label}
-        </span>
-      </div>
     </div>
   )
 }
