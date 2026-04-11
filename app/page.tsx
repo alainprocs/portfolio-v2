@@ -8,6 +8,7 @@ import { SectionNav } from "@/components/ui/section-nav";
 import { GalleryHoverCarousel, type CarouselItem } from "@/components/ui/gallery-hover-carousel";
 import { PulseBeamsLinkedIn } from "@/components/ui/pulse-beams-linkedin";
 import { ShinyButton } from "@/components/ui/shiny-button";
+import { AnimatedShaderCanvas } from "@/components/ui/animated-shader-hero";
 import Image from "next/image";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -234,31 +235,20 @@ export default function Home() {
       {/* ── Shader intro overlay ──────────────────────────────── */}
       <ShaderIntro onDone={() => setIntroComplete(true)} />
 
-      {/* ── FIXED full-page particle layer ────────────────────
-          position:fixed so it covers the viewport at all scroll depths.
-          pointer-events:none so clicks pass through to content.       */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "none",
-          backgroundColor: "#06060a",
-        }}
-      >
-        <SparklesCore
-          id="global-sparkles"
-          background="transparent"
-          minSize={0.3}
-          maxSize={1.2}
-          particleDensity={55}
-          particleColor="#ffffff"
-          speed={0.5}
-          className="w-full h-full"
-        />
+      {/* ── Side sparkles: thin strips fixed to the viewport edges ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", display: "flex" }}>
+        {/* Left strip */}
+        <div style={{ width: 80, height: "100%", flexShrink: 0 }}>
+          <SparklesCore background="transparent" minSize={0.2} maxSize={0.9} particleDensity={40} particleColor="#ffffff" speed={0.4} className="w-full h-full" />
+        </div>
+        {/* Right strip */}
+        <div style={{ flex: 1 }} />
+        <div style={{ width: 80, height: "100%", flexShrink: 0 }}>
+          <SparklesCore background="transparent" minSize={0.2} maxSize={0.9} particleDensity={40} particleColor="#ffffff" speed={0.4} className="w-full h-full" />
+        </div>
       </div>
 
-      {/* ── All scrollable content sits above the particle layer ── */}
+      {/* ── All scrollable content ─────────────────────────────── */}
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: introComplete ? 1 : 0 }}
@@ -266,15 +256,79 @@ export default function Home() {
         style={{ position: "relative", zIndex: 1, minHeight: "100vh" }}
       >
 
-        {/* HERO */}
-        <section className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16" style={{ minHeight: "560px" }}>
-          <div className="relative z-10 flex flex-col items-center text-center gap-5 max-w-2xl mx-auto">
+        {/* ── HERO — shader background + content overlay ─────── */}
+        <section
+          style={{
+            position: "relative",
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+          }}
+        >
+          {/* WebGL shader canvas */}
+          <AnimatedShaderCanvas />
+
+          {/* Dense sparkles concentrated in the name + buttons zone */}
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "min(640px, 92vw)",
+              height: 320,
+              pointerEvents: "none",
+              zIndex: 1,
+            }}
+          >
+            <SparklesCore
+              background="transparent"
+              minSize={0.3}
+              maxSize={1.1}
+              particleDensity={220}
+              particleColor="#ffffff"
+              speed={0.5}
+              className="w-full h-full"
+            />
+            {/* Fade edges so sparkles don't bleed too far */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, #06060a 100%)",
+              }}
+            />
+          </div>
+
+          {/* Content overlay */}
+          <div
+            className="relative z-10 flex flex-col items-center text-center gap-5 px-6"
+            style={{ maxWidth: 640 }}
+          >
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              style={{
+                fontSize: "0.65rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                fontWeight: 700,
+                color: "#05ddfa",
+              }}
+            >
+              ⚡ Production-grade GTM Automations
+            </motion.div>
 
             {/* Name */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
               className="font-bold leading-tight tracking-tight"
               style={{ fontSize: "clamp(2.6rem, 7vw, 5rem)" }}
             >
@@ -282,7 +336,7 @@ export default function Home() {
               <span
                 className="animate-gradient-x"
                 style={{
-                  background: "linear-gradient(90deg, #05ddfa, #8c31e8, #05ddfa)",
+                  background: "linear-gradient(90deg, #e2e8f0, #a5b4fc, #e2e8f0)",
                   backgroundSize: "200%",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -293,41 +347,17 @@ export default function Home() {
               </span>
             </motion.h1>
 
-            {/* Beam + dense sparkle burst below the name */}
-            <div className="relative w-72 h-8 sm:w-96">
-              <div className="absolute inset-x-8 top-0 h-px w-5/6 bg-gradient-to-r from-transparent via-indigo-500 to-transparent blur-sm" />
-              <div className="absolute inset-x-8 top-0 h-px w-5/6 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-              <div className="absolute inset-x-20 top-0 h-[3px] w-3/5 bg-gradient-to-r from-transparent via-white/40 to-transparent blur-sm" />
-              <div className="absolute inset-x-20 top-0 h-px w-3/5 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-              <SparklesCore
-                background="transparent"
-                minSize={0.4}
-                maxSize={1}
-                particleDensity={800}
-                particleColor="#ffffff"
-                className="w-full h-full"
-              />
-              <div
-                className="absolute inset-0 w-full h-full"
-                style={{
-                  background: "#06060a",
-                  maskImage: "radial-gradient(260px 60px at top, transparent 20%, white)",
-                  WebkitMaskImage: "radial-gradient(260px 60px at top, transparent 20%, white)",
-                }}
-              />
-            </div>
-
             {/* Tagline */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.18 }}
+              transition={{ duration: 0.7, delay: 0.22 }}
             >
-              <p className="text-base sm:text-lg font-light" style={{ color: "#9e9baf" }}>
+              <p className="text-base sm:text-lg font-light" style={{ color: "rgba(255,255,255,0.65)" }}>
                 (The) Go-To-Market Engineer{" "}
-                <strong className="font-semibold text-white">you&apos;re looking for.</strong>
+                <strong className="font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>you&apos;re looking for.</strong>
               </p>
-              <p className="text-sm mt-1" style={{ color: "#9e9baf" }}>
+              <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
                 I&apos;ve built production-grade GTM automations that replace a whole marketing team.
               </p>
             </motion.div>
@@ -336,8 +366,8 @@ export default function Home() {
             <motion.nav
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.32 }}
-              className="flex flex-wrap justify-center gap-2.5 mt-1"
+              transition={{ duration: 0.7, delay: 0.34 }}
+              className="flex flex-wrap justify-center gap-2.5"
             >
               {navLinks.map((link) => (
                 <ShinyButton
@@ -356,7 +386,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.46 }}
-              className="mt-4"
+              className="mt-2"
             >
               <SectionNav active={activeSection} onSelect={handleSectionSelect} />
             </motion.div>
