@@ -221,7 +221,7 @@ export function AnimatedScrollGallery({
             style={{
               display: "flex",
               gap: 10,
-              height: isDesktop ? "clamp(768px, 85vh, 1100px)" : "clamp(480px, 70vh, 680px)",
+              height: isDesktop ? "calc(0.96 * 72vw - 7px)" : "clamp(480px, 70vh, 680px)",
               overflow: "hidden",
               rotateX,
               scale,
@@ -230,26 +230,15 @@ export function AnimatedScrollGallery({
               willChange: "transform",
             }}
           >
-            {isDesktop
-              ? distribute(items, 5).map((col, i) => (
-                  <GalleryColumn
-                    key={i}
-                    items={col}
-                    direction={i % 2 === 0 ? "up" : "down"}
-                    duration={[31, 37, 28, 34, 26][i]}
-                    accentColor={accentColor}
-                  />
-                ))
-              : distribute(items, 3).map((col, i) => (
-                  <GalleryColumn
-                    key={i}
-                    items={col}
-                    direction={i === 1 ? "down" : "up"}
-                    duration={[31, 37, 26][i]}
-                    accentColor={accentColor}
-                  />
-                ))
-            }
+            {distribute(items, 3).map((col, i) => (
+              <GalleryColumn
+                key={i}
+                items={col}
+                direction={i === 1 ? "down" : "up"}
+                duration={[31, 37, 26][i]}
+                accentColor={accentColor}
+              />
+            ))}
           </motion.div>
         </div>
       </div>
