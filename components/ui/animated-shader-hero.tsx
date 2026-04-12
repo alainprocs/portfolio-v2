@@ -52,12 +52,12 @@ void main(void){
   uv*=1.-.3*(sin(T*.2)*.5+.5);
   for(float i=1.;i<12.;i++){
     // Sparse step — meteors spread far apart
-    uv+=.038*cos(i*vec2(.1+.01*i,.8)+i*i+T*.5+.1*uv.x);
+    uv+=.060*cos(i*vec2(.1+.01*i,.5)+i*i+T*.6+.1*uv.x);
     vec2 p=uv;
     float d=length(p);
-    col+=.00125/d*(cos(sin(i)*vec2(.2,.4).xyxy.xyz+.2)+1.)*vec3(0.82,0.90,1.0);
+    col+=.00119/d*(cos(sin(i)*vec2(.2,.4).xyxy.xyz+.2)+1.)*vec3(0.82,0.90,1.0);
     float b=noise(i+p+bg*1.731);
-    col+=.0018*b/length(max(p,vec2(b*p.x*.02,p.y)))*vec3(0.75,0.85,1.0);
+    col+=.00171*b/length(max(p,vec2(b*p.x*.02,p.y)))*vec3(0.75,0.85,1.0);
     col=mix(col,vec3(bg*.018,bg*.018,bg*.032),d);
   }
   // Brightness mask: fades the bottom portion to protect text readability.

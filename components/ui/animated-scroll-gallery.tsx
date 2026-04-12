@@ -249,7 +249,7 @@ export function AnimatedScrollGallery({
                 key={i}
                 items={col}
                 direction={i === 1 ? "down" : "up"}
-                duration={[31, 37, 26][i]}
+                duration={[39, 46, 33][i]}
                 accentColor={accentColor}
               />
             ))}
