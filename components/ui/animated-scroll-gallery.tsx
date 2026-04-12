@@ -22,7 +22,14 @@ function GalleryCard({ item, accentColor }: { item: CarouselItem; accentColor: s
     <motion.div
       whileHover={{ scale: 1.2 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      style={{ borderRadius: 14, overflow: "hidden", position: "relative", flexShrink: 0 }}
+      style={{
+        borderRadius: 20,
+        overflow: "hidden",
+        position: "relative",
+        flexShrink: 0,
+        border: "1px solid rgba(180,180,200,0.13)",
+        margin: "0 6px",
+      }}
     >
       <Link
         href={item.url}
@@ -81,7 +88,7 @@ function GalleryCard({ item, accentColor }: { item: CarouselItem; accentColor: s
           </div>
           <div style={{
             fontSize: "0.65rem",
-            color: "rgba(255,255,255,0.55)",
+            color: "#fff",
             lineHeight: 1.4,
             overflow: "hidden",
             display: "-webkit-box",
@@ -136,7 +143,7 @@ function GalleryColumn({
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 10,
+          gap: 20,
           animation: `gallery-scroll-${direction} ${duration}s linear infinite`,
           animationPlayState: paused ? "paused" : "running",
         }}
@@ -234,7 +241,7 @@ export function AnimatedScrollGallery({
           <motion.div
             style={{
               display: "flex",
-              gap: 10,
+              gap: 20,
               height: isDesktop ? "calc(0.96 * 72vw - 7px)" : "clamp(480px, 70vh, 680px)",
               overflow: "hidden",
               rotateX,
@@ -249,7 +256,7 @@ export function AnimatedScrollGallery({
                 key={i}
                 items={col}
                 direction={i === 1 ? "down" : "up"}
-                duration={[39, 46, 33][i]}
+                duration={[49, 58, 41][i]}
                 accentColor={accentColor}
               />
             ))}
