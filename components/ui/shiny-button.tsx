@@ -21,7 +21,10 @@ export function ShinyButton({ children, href, target, rel }: ShinyButtonProps) {
       className="shiny-btn"
       style={{ textDecoration: "none" }}
     >
-      <span className="shiny-btn__text">{children}</span>
+      <span className="shiny-btn__text">
+        {children}
+        <span className="shiny-btn__arrow" aria-hidden="true">→</span>
+      </span>
       <span className="shiny-btn__border" />
     </a>
   )

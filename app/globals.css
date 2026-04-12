@@ -238,6 +238,23 @@
   mask-composite: exclude;
 }
 
+/* Arrow lights up when the shiny sweep reaches the right edge (~10-13% into cycle) */
+@keyframes shiny-arrow-glow {
+  0%        { color: rgba(255,255,255,0.28); filter: none; }
+  8%        { color: rgba(255,255,255,0.28); filter: none; }
+  11%       { color: #fff; filter: drop-shadow(0 0 4px rgba(255,255,255,0.85)); }
+  15%       { color: rgba(255,255,255,0.28); filter: none; }
+  45%, 100% { color: rgba(255,255,255,0.28); filter: none; }
+}
+
+.shiny-btn__arrow {
+  display: inline-block;
+  margin-left: 6px;
+  font-style: normal;
+  animation: shiny-arrow-glow 2.4s ease-in-out infinite;
+  color: rgba(255,255,255,0.28);
+}
+
 @keyframes nav-border-spin {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }

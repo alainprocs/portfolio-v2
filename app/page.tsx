@@ -273,12 +273,12 @@ export default function Home() {
         <section
           style={{
             position: "relative",
-            minHeight: isDesktop ? "70vh" : "88vh",
+            minHeight: isDesktop ? "70vh" : "75vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             paddingTop: isDesktop ? 0 : "clamp(10px, 5vh, 24px)",
-            paddingBottom: isDesktop ? 0 : "clamp(20px, 4vh, 36px)",
+            paddingBottom: isDesktop ? 0 : "clamp(12px, 2vh, 20px)",
             overflow: "hidden",
             background: "#06060a", // opaque — shader canvas covers global particles here
           }}
