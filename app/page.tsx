@@ -87,11 +87,13 @@ const websiteItems: CarouselItem[] = [
 const demoItems: CarouselItem[] = [
   { id: "1", title: "Driftwave", accent: "Async Video Collaboration", summary: "SaaS landing page for a Loom-alternative — dark glassmorphism, animated blobs, and staggered scroll reveals.", url: "https://alainprocs.github.io/ui-demos/driftwave", image: `${BASE}/assets/images/driftwave.jpg` },
   { id: "2", title: "Orbita", accent: "Cloud Cost Intelligence", summary: "SaaS landing page for an AI cloud-spend optimizer — industrial dark theme, circuit grid background, and magnetic CTA buttons.", url: "https://alainprocs.github.io/ui-demos/orbita", image: `${BASE}/assets/images/orbita.jpg` },
+  { id: "3", title: "Luminary", accent: "AI Creative OS", summary: "SaaS landing page for an AI design workspace — deep navy/coral palette, liquid mesh canvas, typewriter headline, and parallax particle CTA.", url: "https://alainprocs.github.io/ui-demos/luminary", image: `${BASE}/assets/images/luminary.jpg` },
 ];
 
 const demos: DemoCard[] = [
   { title: "Driftwave", tagline: "Async Video Collaboration", desc: "Replace endless meetings with rich async video threads built for remote design teams.", href: "https://alainprocs.github.io/ui-demos/driftwave", accent: "#06b6d4", date: "Apr 10, 2026" },
   { title: "Orbita", tagline: "Infrastructure Cost Intelligence", desc: "AI-powered cloud cost optimization that eliminates waste automatically. Zero config, instant savings.", href: "https://alainprocs.github.io/ui-demos/orbita", accent: "#f59e0b", date: "Apr 12, 2026" },
+  { title: "Luminary", tagline: "The Creative OS for Design Teams", desc: "AI design generation, real-time collaboration, and version control in one fluid workspace. Ship beautiful work, faster.", href: "https://alainprocs.github.io/ui-demos/luminary", accent: "#ff4d6d", date: "Apr 13, 2026" },
 ];
 
 // ── Helpers ────────────────────────────────────────────────────
