@@ -253,12 +253,22 @@ export default function Home() {
       {/* ── Background colour fill at z-index 0 ─────────────────── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#06060a" }} />
 
+      {/* ── Global particles — cover every section, not just hero ── */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+        <MiniSparkles
+          particleDensity={70}
+          particleColor="#ffffff"
+          speed={1.8}
+          className="w-full h-full"
+        />
+      </div>
+
       {/* ── All scrollable content ─────────────────────────────── */}
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: introComplete ? 1 : 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ position: "relative", zIndex: 1, minHeight: "100vh" }}
+        style={{ position: "relative", zIndex: 2, minHeight: "100vh" }}
       >
 
         {/* ── HERO — shader background + content overlay ─────── */}
@@ -277,16 +287,6 @@ export default function Home() {
         >
           {/* WebGL shader canvas */}
           <AnimatedShaderCanvas />
-
-          {/* Lightweight sparkles — 30 fps canvas, no library */}
-          <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
-            <MiniSparkles
-              particleDensity={50}
-              particleColor="#ffffff"
-              speed={0.45}
-              className="w-full h-full"
-            />
-          </div>
 
           {/* Content overlay */}
           <div

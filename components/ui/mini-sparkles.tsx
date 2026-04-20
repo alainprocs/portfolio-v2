@@ -48,7 +48,7 @@ export function MiniSparkles({
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        size: 0.3 + Math.random() * 0.8,
+        size: 0.6 + Math.random() * 1.4,
         opacity: Math.random(),
         vx: (Math.random() - 0.5) * speed * 0.18,
         vy: -(0.05 + Math.random() * 0.5) * speed * 0.25,
