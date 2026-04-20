@@ -70,9 +70,9 @@ function GalleryCard({
         style={{ display: "block", textDecoration: "none" }}
         onClick={handleClick}
       >
-        {/* Image only zooms on hover — undercard stays static */}
+        {/* Image — zooms on hover */}
         <motion.div
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.06 }}
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
           style={{ position: "relative", aspectRatio: "3/4" }}
         >
@@ -83,27 +83,37 @@ function GalleryCard({
             className="object-cover"
             sizes="(max-width: 640px) 50vw, 33vw"
           />
+          {/* dark gradient so the card blends into the undercard */}
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to bottom, transparent 40%, rgba(4,4,12,0.85) 100%)",
+            pointerEvents: "none",
+          }} />
         </motion.div>
 
-        {/* Text undercard — white bg; expands on mobile first tap */}
+        {/* Text undercard — dark glass */}
         <motion.div
-          animate={{ height: isExpanded ? "52%" : "25%" }}
+          animate={{ height: isExpanded ? "56%" : "28%" }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           style={{
             position: "absolute",
             bottom: 0, left: 0, right: 0,
-            padding: "10px 12px",
-            background: "#fff",
+            padding: "12px 14px",
+            background: "rgba(6, 5, 18, 0.88)",
+            backdropFilter: "blur(14px)",
+            WebkitBackdropFilter: "blur(14px)",
+            borderTop: `1px solid ${accentColor}28`,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: 4,
+            gap: 5,
             overflow: "hidden",
           }}
         >
           <div style={{
-            fontSize: "0.55rem",
-            letterSpacing: "0.15em",
+            fontSize: "0.62rem",
+            letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: accentColor,
             fontWeight: 700,
@@ -112,9 +122,9 @@ function GalleryCard({
             {item.accent ?? "Project"}
           </div>
           <div style={{
-            fontSize: "0.82rem",
+            fontSize: "0.92rem",
             fontWeight: 700,
-            color: "#0f0f1a",
+            color: "#ffffff",
             lineHeight: 1.25,
             overflow: "hidden",
             display: "-webkit-box",
@@ -124,9 +134,9 @@ function GalleryCard({
             {item.title}
           </div>
           <div style={{
-            fontSize: "0.65rem",
-            color: "rgba(0,0,0,0.6)",
-            lineHeight: 1.4,
+            fontSize: "0.72rem",
+            color: "rgba(255,255,255,0.48)",
+            lineHeight: 1.45,
             overflow: "hidden",
             display: isExpanded ? "block" : "-webkit-box",
             WebkitLineClamp: isExpanded ? undefined : 2,
@@ -138,11 +148,11 @@ function GalleryCard({
           {/* Arrow hint — only visible when expanded */}
           {isExpanded && (
             <div style={{
-              marginTop: 6,
+              marginTop: 4,
               display: "flex",
               alignItems: "center",
               gap: 5,
-              fontSize: "0.6rem",
+              fontSize: "0.65rem",
               fontWeight: 600,
               letterSpacing: "0.08em",
               color: accentColor,

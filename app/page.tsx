@@ -253,12 +253,12 @@ export default function Home() {
       {/* ── Background colour fill at z-index 0 ─────────────────── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#06060a" }} />
 
-      {/* ── Global particles — cover every section, not just hero ── */}
+      {/* ── Global particles — cover every section including hero ── */}
       <div style={{ position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none" }}>
         <MiniSparkles
-          particleDensity={70}
+          particleDensity={80}
           particleColor="#ffffff"
-          speed={1.8}
+          speed={3.5}
           className="w-full h-full"
         />
       </div>
@@ -282,11 +282,21 @@ export default function Home() {
             paddingTop: isDesktop ? 0 : "clamp(10px, 5vh, 24px)",
             paddingBottom: isDesktop ? 0 : "clamp(12px, 2vh, 20px)",
             overflow: "hidden",
-            background: "#06060a", // opaque — shader canvas covers global particles here
+            background: "transparent", // shader canvas + fixed particles handle the background
           }}
         >
           {/* WebGL shader canvas */}
           <AnimatedShaderCanvas />
+
+          {/* Particles layered above shader, below content */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }}>
+            <MiniSparkles
+              particleDensity={60}
+              particleColor="#ffffff"
+              speed={3.5}
+              className="w-full h-full"
+            />
+          </div>
 
           {/* Content overlay */}
           <div
