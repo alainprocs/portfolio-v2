@@ -52,5 +52,14 @@
     "date": "2026-04-20",
     "accent": "#8b5cf6",
     "category": "SaaS"
+  },
+  {
+    "slug": "nova",
+    "name": "Nova",
+    "tagline": "Infrastructure at the Speed of Light",
+    "description": "SaaS landing page for a real-time infrastructure monitoring platform — electric cyan on near-black, live metric streams, and cinematic data visualizations.",
+    "date": "2026-04-21",
+    "accent": "#00d4ff",
+    "category": "SaaS"
   }
 ]
